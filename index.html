@@ -1,149 +1,190 @@
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AMZAFA - Media Sosial</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f6fc;color:#24243b}
-header{height:65px;background:white;display:flex;align-items:center;justify-content:space-between;padding:0 6%;box-shadow:0 2px 12px #0001;position:sticky;top:0;z-index:5}
-.logo{font-size:26px;font-weight:900;color:#6558e8;letter-spacing:1px}
-.search{border:0;background:#f2f1f8;padding:12px 18px;border-radius:25px;width:260px}
-.avatar{width:42px;height:42px;border-radius:50%;background:#e9e5ff;color:#6558e8;display:grid;place-items:center;font-weight:bold}
-.profile{display:flex;align-items:center;gap:9px;font-weight:bold}
-.layout{max-width:1200px;margin:25px auto;padding:0 15px;display:grid;grid-template-columns:210px minmax(300px,650px) 230px;gap:20px}
-.card{background:white;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 3px 15px #25254a08}
-.menu div{padding:14px 8px;font-weight:bold;border-radius:10px}
-.menu div:first-child{background:#eeeaff;color:#6558e8}
-.welcome{background:linear-gradient(120deg,#6558e8,#a58bf9);color:white;padding:25px;border-radius:17px;margin-bottom:17px}
-.welcome h2{margin:0 0 10px}
-.welcome p{margin:0;line-height:1.5}
-h3{margin-top:0}
-textarea{width:100%;height:90px;border:0;background:#f5f5fb;padding:14px;border-radius:12px;font:inherit;resize:vertical;outline:none}
-button{background:#6558e8;color:white;border:0;padding:12px 18px;border-radius:10px;font-weight:bold;cursor:pointer}
+body{margin:0;background:#f0f2f5;font-family:Arial,sans-serif;color:#1c1e21}
+.topbar{height:60px;background:white;display:flex;align-items:center;justify-content:space-between;padding:0 4%;box-shadow:0 1px 4px #ccc;position:sticky;top:0;z-index:10}
+.logo{font-size:27px;font-weight:bold;color:#1877f2}
+.search{background:#f0f2f5;border:0;border-radius:25px;padding:12px 16px;width:230px}
+.nav{display:flex;gap:35px;font-size:23px}
+.nav span{cursor:pointer;padding:12px}
+.nav span:hover{color:#1877f2}
+.avatar{width:38px;height:38px;border-radius:50%;background:#1877f2;color:white;display:grid;place-items:center;font-weight:bold}
+.layout{max-width:1250px;margin:22px auto;display:grid;grid-template-columns:250px minmax(0,600px) 260px;gap:22px;padding:0 12px}
+.side,.right{position:sticky;top:80px;height:max-content}
+.menu{display:flex;align-items:center;gap:12px;padding:13px 10px;border-radius:9px;font-weight:bold;cursor:pointer}
+.menu:hover{background:#e4e6eb}
+.menu b{font-size:22px;color:#1877f2;width:28px;text-align:center}
+.card{background:white;border-radius:10px;padding:16px;margin-bottom:16px;box-shadow:0 1px 2px #ddd}
+.profile{display:flex;align-items:center;gap:10px;font-weight:bold}
+.bigavatar{width:42px;height:42px;border-radius:50%;background:#1877f2;color:white;display:grid;place-items:center;font-size:19px;font-weight:bold}
+.muted{color:#65676b;font-size:13px}
+.storyrow{display:flex;gap:12px;overflow-x:auto}
+.story{min-width:105px;height:155px;border-radius:12px;background:linear-gradient(150deg,#1877f2,#8b5cf6);color:white;display:flex;align-items:end;padding:10px;font-weight:bold}
+.story:nth-child(2){background:linear-gradient(150deg,#ff7b54,#e84393)}
+.story:nth-child(3){background:linear-gradient(150deg,#16a085,#2c3e50)}
+.story:nth-child(4){background:linear-gradient(150deg,#f39c12,#d35400)}
+.create{display:flex;gap:10px;align-items:center}
+.create input{flex:1;border:0;background:#f0f2f5;border-radius:25px;padding:14px;font-size:15px;min-width:0}
+.actions{display:flex;justify-content:space-around;border-top:1px solid #eee;margin-top:14px;padding-top:12px;color:#65676b;font-size:14px}
+.actions span{cursor:pointer}
 .posthead{display:flex;align-items:center;gap:10px}
-.muted{font-size:13px;color:#999}
-.posttext{white-space:pre-wrap;line-height:1.6}
-.actions{border-top:1px solid #eee;padding-top:12px;display:flex;gap:10px}
-.actions button{flex:1;background:#f0edff;color:#6558e8}
-.friend{display:flex;align-items:center;gap:10px;margin:15px 0}
-footer{text-align:center;color:#999;padding:25px}
-@media(max-width:850px){.layout{grid-template-columns:180px 1fr}.right{display:none}}
-@media(max-width:600px){header{padding:0 15px}.search,.left{display:none}.layout{display:block;margin:15px auto;padding:0 12px}.card{padding:15px}.welcome{padding:20px}}
+.posttext{line-height:1.5;margin:16px 0}
+.postimg{width:100%;max-height:380px;object-fit:cover;border-radius:7px}
+.postbuttons{display:flex;justify-content:space-around;border-top:1px solid #eee;margin-top:12px;padding-top:12px;color:#65676b}
+.postbuttons button{border:0;background:white;color:#65676b;font-size:14px;cursor:pointer;padding:8px}
+.postbuttons button:hover{color:#1877f2}
+.commentbox{display:flex;gap:8px;margin-top:12px}
+.commentbox input{flex:1;min-width:0;border:0;background:#f0f2f5;padding:11px;border-radius:20px}
+.commentbox button,.publish{border:0;background:#1877f2;color:white;border-radius:20px;padding:10px 16px;cursor:pointer}
+.online{display:flex;align-items:center;gap:10px;padding:10px 0}
+.dot{width:10px;height:10px;border-radius:50%;background:#31a24c;margin-left:auto}
+h3{font-size:17px}
+@media(max-width:900px){.layout{grid-template-columns:190px minmax(0,1fr)}.right{display:none}}
+@media(max-width:600px){.topbar{padding:0 12px}.search{width:115px}.nav{gap:5px;font-size:19px}.nav span{padding:8px}.layout{display:block;margin:12px auto}.side{display:none}.card{margin-bottom:12px}.story{min-width:95px;height:135px}}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">AMZAFA.</div>
-  <input class="search" placeholder="Cari teman dan cerita...">
-  <div class="profile"><div class="avatar">A</div> AMZAFA</div>
+<header class="topbar">
+  <div class="logo">AMZAFA</div>
+  <input class="search" placeholder="Cari di AMZAFA...">
+  <div class="nav">
+    <span title="Beranda">⌂</span>
+    <span title="Teman">♧</span>
+    <span title="Video">▶</span>
+    <span title="Pesan">✉</span>
+  </div>
+  <div class="avatar">A</div>
 </header>
 
 <div class="layout">
-
-<aside class="left">
-  <div class="card menu">
-    <h3>Menu Utama</h3>
-    <div>🏠 Beranda</div>
-    <div>👥 Teman</div>
-    <div>💬 Pesan</div>
-    <div>🔔 Notifikasi</div>
-    <div>👤 Profil</div>
-    <div>⚙️ Pengaturan</div>
-  </div>
+<aside class="side">
+  <div class="menu"><b>●</b> Profil Saya</div>
+  <div class="menu"><b>♧</b> Teman</div>
+  <div class="menu"><b>👥</b> Grup</div>
+  <div class="menu"><b>▶</b> Video</div>
+  <div class="menu"><b>✉</b> Pesan</div>
+  <div class="menu"><b>🔔</b> Notifikasi</div>
+  <div class="menu"><b>⚙</b> Pengaturan</div>
+  <hr>
+  <p class="muted">Selamat datang di AMZAFA.</p>
 </aside>
 
 <main>
-  <section class="welcome">
-    <h2>Selamat Datang di AMZAFA!</h2>
-    <p>Tempat berbagi cerita, foto, video, dan menjalin pertemanan baru.</p>
+  <section class="card">
+    <h3>Cerita</h3>
+    <div class="storyrow">
+      <div class="story">＋<br>Buat cerita</div>
+      <div class="story">Teman 1</div>
+      <div class="story">Teman 2</div>
+      <div class="story">Teman 3</div>
+    </div>
   </section>
 
   <section class="card">
-    <h3>Buat Postingan</h3>
-    <textarea id="postInput" placeholder="Apa yang sedang Anda pikirkan?"></textarea>
-    <br><br>
-    <button onclick="publishPost()">Bagikan Sekarang</button>
+    <div class="create">
+      <div class="bigavatar">A</div>
+      <input id="postInput" placeholder="Apa yang Anda pikirkan?">
+    </div>
+    <div class="actions">
+      <span>📷 Foto</span>
+      <span>🎥 Video</span>
+      <span>😊 Perasaan</span>
+    </div>
+    <button class="publish" style="width:100%;margin-top:14px" onclick="publishPost()">Posting</button>
   </section>
 
-  <section id="feed">
+  <div id="feed">
     <article class="card">
       <div class="posthead">
-        <div class="avatar">A</div>
-        <div><strong>AMZAFA</strong><div class="muted">Postingan pertama</div></div>
+        <div class="bigavatar">A</div>
+        <div><b>AMZAFA</b><div class="muted">Postingan selamat datang · Publik</div></div>
       </div>
-      <p class="posttext">Halo semuanya! Selamat datang di AMZAFA. Mari berbagi cerita dan membangun pertemanan bersama. 💜</p>
-      <div class="actions">
-        <button onclick="likePost(this)">♡ Suka</button>
-        <button onclick="commentPost()">Komentar</button>
+      <p class="posttext">Selamat datang di AMZAFA! Tempat untuk berbagi cerita, foto, video, dan terhubung dengan teman-teman. Mari bangun komunitas bersama! 💙</p>
+      <div class="muted">👍 <span class="count">0</span> suka</div>
+      <div class="postbuttons">
+        <button onclick="likePost(this)">👍 Suka</button>
+        <button onclick="this.closest('.card').querySelector('.commentbox input').focus()">💬 Komentar</button>
+        <button onclick="sharePost()">↗ Bagikan</button>
       </div>
+      <div class="commentbox">
+        <input placeholder="Tulis komentar...">
+        <button onclick="commentPost(this)">Kirim</button>
+      </div>
+      <div class="comments"></div>
     </article>
-  </section>
+  </div>
 </main>
 
 <aside class="right">
-  <div class="card">
-    <h3>Teman</h3>
-    <div class="friend"><div class="avatar">A</div><div><strong>Temukan Teman</strong><div class="muted">Segera hadir</div></div></div>
-  </div>
-  <div class="card">
+  <section class="card">
+    <h3>Kontak</h3>
+    <div class="online"><div class="bigavatar">B</div> Budi <span class="dot"></span></div>
+    <div class="online"><div class="bigavatar">S</div> Siti <span class="dot"></span></div>
+    <div class="online"><div class="bigavatar">R</div> Rahmat <span class="dot"></span></div>
+  </section>
+  <section class="card">
     <h3>Tentang AMZAFA</h3>
-    <p class="muted">Satu tempat untuk berbagi momen dan terhubung dengan dunia.</p>
-  </div>
+    <p class="muted">Satu tempat untuk berbagi, berteman, dan terhubung.</p>
+  </section>
 </aside>
-
 </div>
-
-<footer>© 2026 AMZAFA. Semua Hak Dilindungi.</footer>
 
 <script>
 function publishPost(){
- const input=document.getElementById("postInput");
- const value=input.value.trim();
- if(!value){alert("Tuliskan cerita terlebih dahulu.");return;}
- const article=document.createElement("article");
- article.className="card";
- const head=document.createElement("div");
- head.className="posthead";
- const avatar=document.createElement("div");
- avatar.className="avatar";
- avatar.textContent="P";
- const info=document.createElement("div");
- const name=document.createElement("strong");
- name.textContent="Pengguna AMZAFA";
- const time=document.createElement("div");
- time.className="muted";
- time.textContent="Baru saja";
- info.append(name,time);
- head.append(avatar,info);
- const content=document.createElement("p");
- content.className="posttext";
- content.textContent=value;
- const actions=document.createElement("div");
- actions.className="actions";
- const like=document.createElement("button");
- like.textContent="♡ Suka";
- like.onclick=function(){likePost(like)};
- const comment=document.createElement("button");
- comment.textContent="Komentar";
- comment.onclick=commentPost;
- actions.append(like,comment);
- article.append(head,content,actions);
- document.getElementById("feed").prepend(article);
- input.value="";
+ const input=document.getElementById('postInput');
+ const text=input.value.trim();
+ if(!text){alert('Tuliskan sesuatu terlebih dahulu');return;}
+ const post=document.createElement('article');
+ post.className='card';
+ const head=document.createElement('div');
+ head.className='posthead';
+ head.innerHTML='<div class="bigavatar">A</div><div><b>Pengguna AMZAFA</b><div class="muted">Baru saja · Publik</div></div>';
+ const body=document.createElement('p');
+ body.className='posttext';
+ body.textContent=text;
+ const count=document.createElement('div');
+ count.className='muted';
+ count.innerHTML='👍 <span class="count">0</span> suka';
+ const buttons=document.createElement('div');
+ buttons.className='postbuttons';
+ buttons.innerHTML='<button onclick="likePost(this)">👍 Suka</button><button onclick="this.closest(\'.card\').querySelector(\'.commentbox input\').focus()">💬 Komentar</button><button onclick="sharePost()">↗ Bagikan</button>';
+ const comment=document.createElement('div');
+ comment.className='commentbox';
+ comment.innerHTML='<input placeholder="Tulis komentar..."><button onclick="commentPost(this)">Kirim</button>';
+ const comments=document.createElement('div');
+ comments.className='comments';
+ post.append(head,body,count,buttons,comment,comments);
+ document.getElementById('feed').prepend(post);
+ input.value='';
 }
 function likePost(button){
- const liked=button.dataset.liked==="yes";
- button.dataset.liked=liked?"no":"yes";
- button.textContent=liked?"♡ Suka":"♥ Disukai";
+ const count=button.closest('.card').querySelector('.count');
+ const liked=button.dataset.liked==='yes';
+ count.textContent=Number(count.textContent)+(liked?-1:1);
+ button.dataset.liked=liked?'no':'yes';
+ button.textContent=liked?'👍 Suka':'👍 Disukai';
 }
-function commentPost(){
- alert("Fitur komentar akan dibuat pada tahap berikutnya.");
+function commentPost(button){
+ const input=button.previousElementSibling;
+ const value=input.value.trim();
+ if(!value)return;
+ const item=document.createElement('p');
+ item.textContent='💬 '+value;
+ button.closest('.card').querySelector('.comments').append(item);
+ input.value='';
+}
+function sharePost(){
+ if(navigator.share){navigator.share({title:'AMZAFA',text:'Ayo bergabung dengan AMZAFA!'});}
+ else{alert('Ayo bergabung dengan AMZAFA!');}
 }
 </script>
-
 </body>
 </html>
