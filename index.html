@@ -186,5 +186,126 @@ function sharePost(){
  else{alert('Ayo bergabung dengan AMZAFA!');}
 }
 </script>
+
+<div id="amzafa-auth" style="max-width:420px;margin:25px auto;padding:20px;background:white;border-radius:15px;box-shadow:0 2px 12px #ccc;font-family:Arial,sans-serif">
+  <h2 style="color:#6541c8;text-align:center">AMZAFA</h2>
+  <h3 id="auth-title">Masuk ke AMZAFA</h3>
+
+  <form id="auth-form">
+    <div id="name-field" style="display:none">
+      <input id="full-name" placeholder="Nama lengkap" style="width:100%;padding:12px;margin:7px 0;box-sizing:border-box">
+      <input id="username" placeholder="Username" style="width:100%;padding:12px;margin:7px 0;box-sizing:border-box">
+    </div>
+
+    <input id="email" type="email" placeholder="Email" required style="width:100%;padding:12px;margin:7px 0;box-sizing:border-box">
+
+    <input id="password" type="password" placeholder="Kata sandi (minimal 8 karakter)" required style="width:100%;padding:12px;margin:7px 0;box-sizing:border-box">
+
+    <button id="auth-submit" type="submit" style="width:100%;padding:13px;background:#6541c8;color:white;border:0;border-radius:8px;margin-top:10px">Masuk</button>
+  </form>
+
+  <p id="auth-message" style="font-size:14px"></p>
+
+  <button id="toggle-auth" type="button" style="background:none;border:0;color:#6541c8">
+    Belum punya akun? Daftar di sini
+  </button>
+
+  <div id="user-info" style="display:none">
+    <h3 id="welcome"></h3>
+    <button id="logout" type="button">Keluar</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  const form = document.getElementById("auth-form");
+  const title = document.getElementById("auth-title");
+  const nameField = document.getElementById("name-field");
+  const submit = document.getElementById("auth-submit");
+  const toggle = document.getElementById("toggle-auth");
+  const message = document.getElementById("auth-message");
+  const userInfo = document.getElementById("user-info");
+  let registerMode = false;
+
+  toggle.onclick = () => {
+    registerMode = !registerMode;
+    title.textContent = registerMode ? "Buat akun AMZAFA" : "Masuk ke AMZAFA";
+    nameField.style.display = registerMode ? "block" : "none";
+    submit.textContent = registerMode ? "Daftar" : "Masuk";
+    toggle.textContent = registerMode ? "Sudah punya akun? Masuk" : "Belum punya akun? Daftar di sini";
+    message.textContent = "";
+  };
+
+  async function api(path, data) {
+    const response = await fetch("/api/" + path, {
+      method: data ? "POST" : "GET",
+      credentials: "same-origin",
+      headers: data ? {"Content-Type":"application/json"} : {},
+      body: data ? JSON.stringify(data) : undefined
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.message || "Terjadi kesalahan");
+    return result;
+  }
+
+  async function checkLogin() {
+    try {
+      const result = await api("me");
+      showUser(result.user);
+    } catch (error) {}
+  }
+
+  function showUser(user) {
+    form.style.display = "none";
+    toggle.style.display = "none";
+    userInfo.style.display = "block";
+    document.getElementById("welcome").textContent =
+      "Selamat datang, " + user.full_name;
+  }
+
+  form.onsubmit = async (event) => {
+    event.preventDefault();
+    submit.disabled = true;
+    message.textContent = "Mohon tunggu...";
+
+    try {
+      let result;
+      if (registerMode) {
+        result = await api("register", {
+          full_name: document.getElementById("full-name").value,
+          username: document.getElementById("username").value,
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value
+        });
+        message.textContent = "Pendaftaran berhasil. Silakan masuk.";
+        registerMode = false;
+        toggle.click();
+        form.reset();
+      } else {
+        result = await api("login", {
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value
+        });
+        showUser(result.user);
+      }
+    } catch (error) {
+      message.textContent = error.message;
+    } finally {
+      submit.disabled = false;
+    }
+  };
+
+  document.getElementById("logout").onclick = async () => {
+    try {
+      await api("logout", {});
+      location.reload();
+    } catch (error) {
+      message.textContent = error.message;
+    }
+  };
+
+  checkLogin();
+})();
+</script>
 </body>
 </html>
